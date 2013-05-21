@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Decision</title>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
+<script>
+</script>
+<style>
+</style>
+</head>
+<body>
+<h1>InfluenceAPI</h1>
+{% if main_decision %}
+<div><a href="/decisions/">Top of decision tree</a>
+{% for decision in main_decision.get_ancestors %}
+> <a href="{{ decision.get_url }}">{{ decision|capfirst }}</a>
+{% endfor %}
+> <strong>{{ main_decision|capfirst }}</strong>
+</div>
+<p>{{ main_decision.summary }}</p>
+{% endif %}
+<ul id="choices">
+{% for decision in decisions %}
+<li><a href="/decisions/{{ decision.id }}/">{{ decision|capfirst }}</a></li>
+{% endfor %}
+</ul>
+<p>{{ main_decision.explanation }}</p>
+<strong>Decisions needing explanation:</strong> 
+{% for decision in decisions_needing_explanation %}
+<a href="/admin/decisiontrees/decision/{{ decision.id }}">{{ decision }}</a>{% if not forloop.last %} | {%endif %}
+{% endfor %}
+</body>
+</html>

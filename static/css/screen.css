@@ -1,0 +1,107 @@
+@import url('reset.css');
+
+body {
+font:.9em/1.5em helvetica, arial, sans-serif;
+text-align:center;
+}
+
+#choices {
+width:500px;
+margin:0 auto;
+}
+
+#choices a:link, #choices a:visited {
+width:500px;
+padding:10px;
+font-size:2em;
+background:yellow;
+margin-bottom:10px;
+display:block;
+}
+
+#choices a:hover {
+background:orange;
+}
+
+p {font-size:1.5em;}
+
+#header {
+height:44px;
+text-align:center;
+}
+
+h1 {
+height:44px;
+}
+
+
+h1 span {
+display:none;
+}
+
+#nav {
+padding-top:5px;
+height:25px;
+background:#2e3192;
+}
+
+#nav, p {
+margin-bottom:10px;
+}
+
+#nav ul {
+color:#FFF;
+}
+
+#nav li {
+margin-right:20px;
+}
+
+#nav a:link, #nav a:visited {
+color:#FFF;
+}
+
+#nav a:hover {
+text-decoration:none;
+}
+
+h1, #nav ul, #content {
+width:800px;
+margin:0 auto;
+}
+
+.floatleft {
+float:left;
+}
+
+img.floatleft {
+margin:0 10px 10px 0;
+}
+
+strong {
+font-weight:bold;
+}
+
+textarea {
+width:600px;
+height:200px;
+border:1px solid #000;
+}
+
+
+#edit_rules {
+margin:0 auto;
+}
+
+#edit_rules td, #edit_rules th {
+border:1px solid #DCDCDC;
+padding:5px;
+}
+
+#edit_rules th {
+font-weight:bold;
+}
+
+#edit_rules input {
+width:400px;
+}

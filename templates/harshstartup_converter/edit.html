@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>Harsh Startup Converter</title>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
+<script>
+
+function getConversion()
+{
+	$.post("get_conversion/", { input: $('#input').val() })
+	.done(function(data) {
+		$('#output').val(data.output);
+	});
+}
+
+function saveForm()
+{
+	var content = $("#edit_form").serialize();
+	$.post('/harshstartup_converter/save/', content);
+}
+
+$(document).ready(function(){
+    $('#inputs').change(function(){
+
+        var theInput = $(this).find("option:selected").text()
+        if (theInput != "Pick a harsh startup") {
+		    $('#input').val(theInput);
+		    
+		    getConversion()
+        }
+    });
+	$("#input").keypress(function(event) {
+        getConversion()
+	});
+    $("#save_button").click(function() {
+        saveForm();
+    });
+    $("#save_test").click(function() {
+		var content = $("#add_test").serialize();
+		$.post('/harshstartup_converter/save_test/', content);
+    });
+    $("#generate_pattern_and_replacement").click(function() {
+        $.post("/harshstartup_converter/generate_pattern_and_replacement/", { input: $('#input').val(), output: $('#output').val() })
+     	.done(function(data) {
+		    $('#pattern').val(data.pattern);
+            $('#replacement').val(data.replacement);
+        });
+    });
+});
+</script>
+<style>
+</style>
+</head>
+<body>
+<h1>Edit Rules for Harsh Startup Converter</h1>
+<form id="add_test" style="text-align:left; width:810px; margin:0 auto; background:yellow; padding:5px;">
+<input type="button" id="save_test" style="float:right;" value="Save test" />
+<strong>Input:</strong> <input id="input" name="input" type="text" value="" style="width:300px" /><br/>
+<strong>Output:</strong> <input id="output" name="output" type="text" value="" style="width:300px" /><br/>
+<input type="button" id="generate_pattern_and_replacement" value="Generate pattern and replacement" /><br/>
+<strong>Pattern:</strong> <input id="pattern" name="pattern" type="text" value="" style="width:300px" /><br/>
+<strong>Replacement:</strong> <input id="replacement" name="replacement" type="text" value="" style="width:300px" /><br/>
+</form>
+<form id="edit_form">
+<input type="button" style="position:fixed; top:5px; right:5px;" value="Save" id="save_button" />
+<table id="edit_rules">
+<tr><th>Pattern</th><th>Replacement</th></tr>
+{% for rule in rules %}
+<tr><td><input type="text" name="rule_{{ rule.id }}_pattern" value="{{ rule.pattern }}" /></td><td><input type="text" name="rule_{{ rule.id }}" value="{{ rule.replacement }}" /></td></tr>
+<tr><td colspan="2">
+{% for test in rule.get_tests %}
+<div style="width:100px; background:{% if test.test_passes.0 %}#32CD32{% else %}red{% endif %}; float:right;">{% if test.test_passes.0 %}
+Works!
+{% else %}
+Doesn't work!<br/>
+{{ test.test_passes.1 }}<br/>
+{{ test.test_passes.2 }}
+{% endif %}
+</div>
+<strong>Input:</strong> <input type="text" name="test_{{ test.id }}_input" value="{{ test.input }}" /><br/>
+<strong>Output:</strong> <input type="text" name="test_{{ test.id }}_output" value="{{ test.output }}" />
+<div class="clear"></div>
+{% endfor %}
+</td></tr>
+{% endfor %}
+</table>
+</form>
+</body>
+</html>

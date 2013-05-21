@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Daily Goal Status</title>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
+<script>
+
+function getConversion()
+{
+	$.post("get_conversion/", { input: $('#input').val() })
+	.done(function(data) {
+		$('#output').val(data.output);
+	});
+}
+
+function saveForm()
+{
+	var content = $("#edit_form").serialize();
+	$.post('/harshstartup_converter/save/', content);
+}
+
+$(document).ready(function(){
+    $('#inputs').change(function(){
+
+        var theInput = $(this).find("option:selected").text()
+        if (theInput != "Pick a harsh startup") {
+		    $('#input').val(theInput);
+		    
+		    getConversion()
+        }
+    });
+	$("#input").keypress(function(event) {
+        getConversion()
+	});
+    $("#save_button").click(function() {
+        saveForm();
+    });
+    $("#save_test").click(function() {
+		var content = $("#add_test").serialize();
+		$.post('/harshstartup_converter/save_test/', content);
+    });
+    $("#generate_pattern_and_replacement").click(function() {
+        $.post("/harshstartup_converter/generate_pattern_and_replacement/", { input: $('#input').val(), output: $('#output').val() })
+     	.done(function(data) {
+		    $('#pattern').val(data.pattern);
+            $('#replacement').val(data.replacement);
+        });
+    });
+});
+</script>
+<style>
+</style>
+</head>
+<body>
+<h1>Edit Rules for Harsh Startup Converter</h1>
+<table>
+<tr>
+<th>Date</th>
+{% for goal_statement in goal_statements %}
+<th><strong>Goal:</strong> {{ goal }}</th>
+{% endfor %}
+</tr>
+{% for goal_status_for_date in goal_status_for_dates %}
+<tr>
+<td>{{ goal_status_for_date.date }}</td>
+{% for status in statuses %}
+<td {% if status %}style="background:green"{% else %}style="background:red"{% endif %}>{{ status }}</td>
+{% endfor %}
+</tr>
+{% endfor %}
+</table>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>Checklist</title>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+$(function() {
+  $('.checkbox').mousedown(function() {
+    $(this).parent().css('background', 'yellow');
+  });
+});
+</script>
+</head>
+<body>
+<h1>{{ checklist }}</h1>
+<ol>
+{% for item in checklist.get_items %}
+<li><input type="checkbox" class="checkbox" /> {{ item.summary }}</li>
+{% endfor %}
+</ol>
+</body>
+</html>

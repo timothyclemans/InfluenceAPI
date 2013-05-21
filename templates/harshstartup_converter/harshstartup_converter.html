@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Harsh Startup Converter</title>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
+<script>
+
+function getConversion()
+{
+	$.post("get_conversion/", { input: $('#input').val() })
+	.done(function(data) {
+		$('#output').val(data.output);
+	});
+}
+
+$(document).ready(function(){
+    $('#inputs').change(function(){
+
+        var theInput = $(this).find("option:selected").text()
+        if (theInput != "Pick a harsh startup") {
+		    $('#input').val(theInput);
+		    
+		    getConversion()
+        }
+    });
+	$("#input").keypress(function(event) {
+        getConversion()
+	});
+});
+</script>
+<style>
+</style>
+</head>
+<body>
+<h1>Harsh Startup Converter</h1>
+<select id="inputs">
+<option>Pick a harsh startup</option>
+{% for input in inputs %}
+<option>{{ input }}</option>
+{% endfor %}
+</select><br/>
+<strong>OR</strong> type in your own harsh startup:<br/>
+<textarea id="input"></textarea>
+<br/>
+<h3>I Statement</h3>
+<textarea id="output"></textarea>
+</body>
+</html>
