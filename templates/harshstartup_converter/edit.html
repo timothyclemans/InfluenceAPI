@@ -19,6 +19,11 @@ function saveForm()
 	$.post('/harshstartup_converter/save/', content);
 }
 
+function deleteRule(id) 
+{
+	$.post('/harshstartup_converter/delete_rule/', {'id': id});
+}
+
 $(document).ready(function(){
     $('#inputs').change(function(){
 
@@ -64,16 +69,18 @@ $(document).ready(function(){
 <form id="edit_form">
 <input type="button" style="position:fixed; top:5px; right:5px;" value="Save" id="save_button" />
 <table id="edit_rules">
-<tr><th>Pattern</th><th>Replacement</th></tr>
+<tr><th>Pattern</th><th>Replacement</th><th></th></tr>
 {% for rule in rules %}
-<tr><td><input type="text" name="rule_{{ rule.id }}_pattern" value="{{ rule.pattern }}" /></td><td><input type="text" name="rule_{{ rule.id }}" value="{{ rule.replacement }}" /></td></tr>
-<tr><td colspan="2">
+<tr><td><input type="text" name="rule_{{ rule.id }}_pattern" value="{{ rule.pattern }}" /></td><td><input type="text" name="rule_{{ rule.id }}" value="{{ rule.replacement }}" /></td><td><input style="width:20px" type="button" value="X" onClick="deleteRule({{ rule.id }})" /></td></tr>
+<tr><td colspan="3">
 {% for test in rule.get_tests %}
 <div style="width:100px; background:{% if test.test_passes.0 %}#32CD32{% else %}red{% endif %}; float:right;">{% if test.test_passes.0 %}
 Works!
 {% else %}
-Doesn't work!<br/>
+<strong>Doesn't work!</strong><br/>
+<strong>Output returned</strong><br/>
 {{ test.test_passes.1 }}<br/>
+<strong>Output expected</strong><br/>
 {{ test.test_passes.2 }}
 {% endif %}
 </div>

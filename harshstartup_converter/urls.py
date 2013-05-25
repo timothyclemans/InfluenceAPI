@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^save/$', views.save),
     url(r'^save_test/$', views.save_test),
     url(r'^generate_pattern_and_replacement/$', views.generate_pattern_and_replacement),
+    url(r'^delete_rule/$', views.delete_rule),
 )

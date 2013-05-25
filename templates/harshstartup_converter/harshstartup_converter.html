@@ -23,8 +23,8 @@ $(document).ready(function(){
 		    getConversion()
         }
     });
-	$("#input").keypress(function(event) {
-        getConversion()
+	$("#input").keyup(function(event) {
+        getConversion();
 	});
 });
 </script>
