@@ -1,6 +1,7 @@
 @import url('reset.css');
 
 body {
+background:url('../images/background.png') top right repeat-y;
 font:.9em/1.5em helvetica, arial, sans-serif;
 text-align:center;
 }
@@ -104,4 +105,80 @@ font-weight:bold;
 
 #edit_rules input {
 width:400px;
+}
+
+#goals {
+border-collapse:collapse;
+}
+
+#goals th, #goals td {
+padding:5px;
+border:1px solid #DCDCDC;
+}
+
+#subnav { margin-left: 30px; }
+
+#subnav
+{
+float:right;
+margin: 0;
+padding: 0;
+list-style-type: none;
+font: .8em Helvetica, sans-serif;
+text-align:left;
+}
+
+#subnav a:link, #subnav a:visited, #subnav strong
+{
+display: block;
+padding: 5px 10px;
+width: 180px;
+color: #fff;
+background-color: #C00;
+text-decoration: none;
+border-bottom:1px solid #FFF;
+}
+
+#subnav a:hover
+{
+color: #fff;
+background-color: #F00;
+text-decoration: none;
+}
+
+
+#subnav ul a:link, #subnav ul a:visited, #subnav ul strong
+{
+display: block;
+padding-left:15px;
+width: 175px;
+color: #fff;
+background-color: #EC0000;
+text-decoration: none;
+}
+
+
+#subnav ul a:hover, #subnav ul strong
+{
+color: #fff;
+background-color: #FD5959;
+text-decoration: none;
+}
+
+#subnav ul ul a:link, #subnav ul ul a:visited, #subnav ul ul strong
+{
+display: block;
+padding-left:20px;
+width: 170px;
+color: #fff;
+background-color: #fe0356;
+text-decoration: none;
+}
+
+
+#subnav ul ul a:hover, #subnav ul ul strong
+{
+color: #fff;
+background-color: #F09;
+text-decoration: none;
 }

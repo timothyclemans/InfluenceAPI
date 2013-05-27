@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'decisiontrees',
     'harshstartup_converter',
     'goals',
+    'marriage',
 )
 
 

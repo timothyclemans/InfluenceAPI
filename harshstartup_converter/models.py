@@ -42,7 +42,6 @@ class Test(models.Model):
 
     def test_passes(self):
         new_paragraph = self.input 
-        #phrase_conversions = [("You're not being (?P<word>\w+) to me.", "I want to be treated {{ word }}ly."), ("You're not (?P<what>[\w\s]+).", 'I want to {{ what }}.'), ("(?P<word>[\w]+)ing", "{{ word }}"), ("treated (?P<word>\w+)lyly", "treated as a {{ word }}"), ("to do what you.re told to do", "my orders to be followed")]
         phrase_conversions = Rule.objects.root_nodes().order_by('order').values_list('pattern', 'replacement')
         for phrase_conversion in phrase_conversions:
             m = ''

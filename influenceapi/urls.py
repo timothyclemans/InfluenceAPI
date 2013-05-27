@@ -21,4 +21,6 @@ urlpatterns = patterns('',
     url(r'^decisions/$', 'decisiontrees.views.decisions'),
     url(r'^decisions/(?P<id>\d+)/$', 'decisiontrees.views.decisions'),
     url(r'^harshstartup_converter/', include('harshstartup_converter.urls')),
+    url(r'^goals/', include('goals.urls')),
+    url(r'^marriage/', include('marriage.urls')),
 )  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

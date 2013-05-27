@@ -52,18 +52,18 @@ $(document).ready(function(){
 </style>
 </head>
 <body>
-<h1>Edit Rules for Harsh Startup Converter</h1>
-<table>
+<h1>Goal Statuses</h1>
+<table id="goals">
 <tr>
 <th>Date</th>
 {% for goal_statement in goal_statements %}
-<th><strong>Goal:</strong> {{ goal }}</th>
+<th><strong>Goal:</strong> {{ goal_statement }}</th>
 {% endfor %}
 </tr>
 {% for goal_status_for_date in goal_status_for_dates %}
 <tr>
-<td>{{ goal_status_for_date.date }}</td>
-{% for status in statuses %}
+<td>{{ goal_status_for_date.date|date:"D n/j/y" }}</td>
+{% for status in goal_status_for_date.statuses %}
 <td {% if status %}style="background:green"{% else %}style="background:red"{% endif %}>{{ status }}</td>
 {% endfor %}
 </tr>
