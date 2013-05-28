@@ -29,6 +29,10 @@ p {font-size:1.5em;}
 #header {
 height:44px;
 text-align:center;
+background:#000 url('../images/header_background.png') top right no-repeat;
+margin-right:200px;
+color:#FFF;
+
 }
 
 h1 {
@@ -153,15 +157,24 @@ display: block;
 padding-left:15px;
 width: 175px;
 color: #fff;
-background-color: #EC0000;
 text-decoration: none;
 }
 
+#subnav a.current:link, #subnav strong.current {
+border-bottom:2px solid #FFF;
+}
+
+#subnav ul a.current:link, #subnav ul strong.current {
+border-bottom:3px solid #FFF;
+}
+
+#subnav ul ul a.current:link, #subnav ul ul strong.current {
+border-bottom:4px solid #FFF;
+}
 
 #subnav ul a:hover, #subnav ul strong
 {
 color: #fff;
-background-color: #FD5959;
 text-decoration: none;
 }
 
@@ -171,7 +184,6 @@ display: block;
 padding-left:20px;
 width: 170px;
 color: #fff;
-background-color: #fe0356;
 text-decoration: none;
 }
 
@@ -179,6 +191,11 @@ text-decoration: none;
 #subnav ul ul a:hover, #subnav ul ul strong
 {
 color: #fff;
-background-color: #F09;
 text-decoration: none;
 }
+
+#main {
+background:url('../images/main_background.png') top right no-repeat;
+margin-right:200px;
+.}
+
