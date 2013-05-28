@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Love map | InfluenceAPI</title>
+<script src="/static/js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
+<script>
+
+function getConversion()
+{
+	$.post("get_conversion/", { input: $('#input').val() })
+	.done(function(data) {
+		$('#output').val(data.output);
+	});
+}
+
+function saveForm()
+{
+	var content = $("#edit_form").serialize();
+	$.post('/harshstartup_converter/save/', content);
+}
+
+$(document).ready(function(){
+    $('#inputs').change(function(){
+
+        var theInput = $(this).find("option:selected").text()
+        if (theInput != "Pick a harsh startup") {
+		    $('#input').val(theInput);
+		    
+		    getConversion()
+        }
+    });
+	$("#input").keypress(function(event) {
+        getConversion()
+	});
+    $("#save_button").click(function() {
+        saveForm();
+    });
+    $("#save_test").click(function() {
+		var content = $("#add_test").serialize();
+		$.post('/harshstartup_converter/save_test/', content);
+    });
+    $("#generate_pattern_and_replacement").click(function() {
+        $.post("/harshstartup_converter/generate_pattern_and_replacement/", { input: $('#input').val(), output: $('#output').val() })
+     	.done(function(data) {
+		    $('#pattern').val(data.pattern);
+            $('#replacement').val(data.replacement);
+        });
+    });
+});
+</script>
+<style>
+</style>
+</head>
+<body>
+<ul id="subnav">
+<li><a href="/marriage/love_map/">Love map</a></li>
+<li><a href="/marriage/foundness_and_admiration/">Fondness and admiration</a></li>
+<li><a href="/marriage/turn_toward/">Turn toward</a></li>
+<li><a href="/marriage/accept_influence/">Accept influence</a></li>
+<li><strong>Solve solvable problems</strong>
+<ul>
+<li><a href="/marriage/solve_solvable_problems/typical_problems/">Typical problems</a></li>
+</ul>
+</li>
+<li><a href="/marriage/overcome_gridlock/">Overcome gridlock</a></li>
+<li><a href="/marriage/create_shared_meaning/">Create shared meaning</a></li>
+</ul>
+<div id="header">
+<h1>InfluenceAPI</h1>
+</div>
+<div id="main">
+
+</div>
+</body>
+</html>
