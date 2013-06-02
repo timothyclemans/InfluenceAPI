@@ -2,8 +2,7 @@
 
 body {
 background:url('../images/background.png') top right repeat-y;
-font:.9em/1.5em helvetica, arial, sans-serif;
-text-align:center;
+font:.8em/1.5em helvetica, arial, sans-serif;
 }
 
 #choices {
@@ -24,11 +23,8 @@ display:block;
 background:orange;
 }
 
-p {font-size:1.5em;}
-
 #header {
-height:44px;
-text-align:center;
+height:50px;
 background:#000 url('../images/header_background.png') top right no-repeat;
 margin-right:200px;
 color:#FFF;
@@ -36,7 +32,8 @@ color:#FFF;
 }
 
 h1 {
-height:44px;
+height:55px;
+background:url('../images/logo.png') 10px 10px no-repeat;
 }
 
 
@@ -68,11 +65,6 @@ color:#FFF;
 
 #nav a:hover {
 text-decoration:none;
-}
-
-h1, #nav ul, #content {
-width:800px;
-margin:0 auto;
 }
 
 .floatleft {
@@ -118,6 +110,7 @@ border-collapse:collapse;
 #goals th, #goals td {
 padding:5px;
 border:1px solid #DCDCDC;
+text-align:left;
 }
 
 #subnav { margin-left: 30px; }
@@ -187,7 +180,6 @@ color: #fff;
 text-decoration: none;
 }
 
-
 #subnav ul ul a:hover, #subnav ul ul strong
 {
 color: #fff;
@@ -196,6 +188,19 @@ text-decoration: none;
 
 #main {
 background:url('../images/main_background.png') top right no-repeat;
+padding:10px;
 margin-right:200px;
-.}
+}
 
+
+h2 {
+font-size:1.5em;
+}
+
+h2, p {
+margin-bottom:10px;
+}
+
+.goal_cell {
+color:#FFF;
+}

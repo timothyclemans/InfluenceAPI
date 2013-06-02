@@ -1,75 +1,50 @@
-<html>
-<head>
-<title>Daily Goal Status</title>
-<script src="/static/js/jquery-1.9.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
-<script>
-
-function getConversion()
-{
-	$.post("get_conversion/", { input: $('#input').val() })
-	.done(function(data) {
-		$('#output').val(data.output);
-	});
-}
-
-function saveForm()
-{
-	var content = $("#edit_form").serialize();
-	$.post('/harshstartup_converter/save/', content);
-}
-
-$(document).ready(function(){
-    $('#inputs').change(function(){
-
-        var theInput = $(this).find("option:selected").text()
-        if (theInput != "Pick a harsh startup") {
-		    $('#input').val(theInput);
-		    
-		    getConversion()
-        }
-    });
-	$("#input").keypress(function(event) {
-        getConversion()
-	});
-    $("#save_button").click(function() {
-        saveForm();
-    });
-    $("#save_test").click(function() {
-		var content = $("#add_test").serialize();
-		$.post('/harshstartup_converter/save_test/', content);
-    });
-    $("#generate_pattern_and_replacement").click(function() {
-        $.post("/harshstartup_converter/generate_pattern_and_replacement/", { input: $('#input').val(), output: $('#output').val() })
-     	.done(function(data) {
-		    $('#pattern').val(data.pattern);
-            $('#replacement').val(data.replacement);
-        });
-    });
-});
-</script>
-<style>
-</style>
-</head>
-<body>
-<h1>Goal Statuses</h1>
+{% extends "base.html" %}
+{% block title %}Daily Goals Status{% endblock %}
+{% block main %}
+<h2>Daily Goals</h2>
+<p><strong>Add goal:</strong> <input type="text" style="width:400px" id="goal_statement" />
+<input type="button" value="Save goal" id="save_goal" />
+</p>
 <table id="goals">
 <tr>
 <th>Date</th>
 {% for goal_statement in goal_statements %}
-<th><strong>Goal:</strong> {{ goal_statement }}</th>
+<th><strong>Goal:</strong> {{ goal_statement.statement }} <input type="button" value="X" onclick="deleteGoal({{ goal_statement.id }});" /></th>
 {% endfor %}
 </tr>
+{% for date in daterange %}
+<tr>
+<td>{{ date|date:"D n/j/y" }}</td>
+{% for goal_statement in goal_statements %}
+<td id="{{ goal_statement.id }}{{ date|date:"njy" }}"><input type="button" value="Yes" onclick="updateStatus('{{ date|date:"n-j-y"}}', {{ goal_statement.id }}, true, {{ goal_statement.id }}{{ date|date:"njy" }})" />
+<input type="button" value="No" onclick="updateStatus('{{ date|date:"n-j-y"}}', {{ goal_statement.id }}, false, '{{ goal_statement.id }}{{ date|date:"njy" }}')" /></td>
+{% endfor %}
+</tr>
+{% endfor %}
 {% for goal_status_for_date in goal_status_for_dates %}
 <tr>
 <td>{{ goal_status_for_date.date|date:"D n/j/y" }}</td>
 {% for status in goal_status_for_date.statuses %}
-<td {% if status %}style="background:green"{% else %}style="background:red"{% endif %}>{{ status }}</td>
+{% if status.exists = True %}
+<td id="{{ status.daily_goal.id }}{{ goal_status_for_date.date|date:"njy" }}"><input type="button" value="Yes" onclick="updateStatus('{{ goal_status_for_date.date|date:"n-j-y"}}', {{ status.daily_goal.id }}, true, '{{ status.daily_goal.id }}{{ goal_status_for_date.date|date:"njy" }}')" />
+<input type="button" value="No" onclick="updateStatus('{{ goal_status_for_date.date|date:"n-j-y"}}', {{ status.daily_goal.id }}, false, '{{ status.daily_goal.id }}{{ goal_status_for_date.date|date:"njy" }}')" /></td>
+{% else %}
+<td class="goal_cell" {% if status.status == True %}style="background:green"{% else %}style="background:red"{% endif %}>{% if status.status %}Yes{% else %}No{% endif %}</td>
+{% endif %}
 {% endfor %}
 </tr>
 {% endfor %}
-</table>
+<tr>
+<th>Record streak</th>
+{% for goal_statement in goal_statements %}
+<td>{{ goal_statement.count_streaks.true_streak_record }} days</td>
+{% endfor %}
+</tr>
+<tr>
+<th>Streaks</th>
+{% for goal_statement in goal_statements %}
+<td>{{ goal_statement.count_streaks.true_streaks }}</td>
+{% endfor %}
 </tr>
 </table>
-</body>
-</html>
+{% endblock %}

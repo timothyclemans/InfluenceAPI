@@ -1,12 +1,6 @@
-<html>
-<head>
-<title>Love map | InfluenceAPI</title>
-<script src="/static/js/jquery-1.9.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/css/screen.css" />
-
-</head>
-<body>
-
+{% extends "base.html" %}
+{% block title %}Love map{% endblock %}
+{% block subnav %}
 <ul id="subnav">
 <li><strong>Love map</strong></li>
 <li><a href="/marriage/foundness_and_admiration/">Fondness and admiration</a></li>
@@ -16,11 +10,4 @@
 <li><a href="/marriage/overcome_gridlock/">Overcome gridlock</a></li>
 <li><a href="/marriage/create_shared_meaning/">Create shared meaning</a></li>
 </ul>
-<div id="header">
-<h1>InfluenceAPI</h1>
-</div>
-<div id="main">
-
-</div>
-</body>
-</html>
+{% endblock %}
