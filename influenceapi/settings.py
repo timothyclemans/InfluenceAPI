@@ -135,6 +135,8 @@ INSTALLED_APPS = (
     'harshstartup_converter',
     'goals',
     'marriage',
+    'non_violent_communication',
+    'profiles',
 )
 
 

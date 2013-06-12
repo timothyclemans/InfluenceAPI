@@ -30,7 +30,15 @@ def index(request):
             if DailyGoalStatus.objects.filter(daily_goal=i, date=date):
                 statuses.append(DailyGoalStatus.objects.filter(daily_goal=i, date=date)[0])
             else:
-                statuses.append({'exists': True, 'daily_goal': i})
+                try:
+                    if (i.started - date).days == 1:
+                        statuses.append({'exists': True, 'daily_goal': i, 'ok': date >= i.started, 'rowspan': (date - dates[-1]).days + 1})
+                    else:
+                        statuses.append({'exists': True, 'daily_goal': i, 'ok': date >= i.started, 'rowspan': None})
+                except TypeError:
+                    i.started = i.raw_statuses()[0].date
+                    i.save()
+                    statuses.append({'exists': True, 'daily_goal': i, 'ok': date >= i.started})
         context['goal_status_for_dates'].append({'date': date, 'statuses': statuses}) 
     return render(request, 'goals/daily_goals_status.html', context)
 
