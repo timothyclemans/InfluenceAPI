@@ -24,4 +24,10 @@ $(document).ready(function(){
     $('#save_goal').click(function(){
 	    $.post("/goals/save_goal/", { statement: $('#goal_statement').val() })
     });
+	$("#paragraph").keyup(function(event) {
+ 	$.get("/profiles/replace_words_api/", { paragraph: $('#paragraph').val() })
+	.done(function(data) {
+		$('#new_paragraph').html(data.paragraph);
+	});
+	});
 });

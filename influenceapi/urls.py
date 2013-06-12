@@ -24,5 +24,5 @@ urlpatterns = patterns('',
     url(r'^goals/', include('goals.urls')),
     url(r'^marriage/', include('marriage.urls')),
     url(r'^non_violent_communication/', include('non_violent_communication.urls')),
-
+    url(r'^profiles/', include('profiles.urls')),
 )  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
